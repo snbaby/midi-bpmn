@@ -1,18 +1,14 @@
 <template>
     <div id="app">
-        <colorPicker v-model="color" v-on:change="headleChangeColor"></colorPicker>
-        <img alt="Vue logo1" src="./assets/logo.png">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <midi-bpmn-viewer ></midi-bpmn-viewer>
     </div>
 </template>
 
 <script>
-    import HelloWorld from './components/HelloWorld.vue'
 
     export default {
         name: 'app',
         components: {
-            HelloWorld
         },
         data() {
             return {
