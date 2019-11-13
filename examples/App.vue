@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <midi-bpmn-viewer :data="processDefId"></midi-bpmn-viewer>
+        <midi-bpmn-viewer-detail :data="procInstId"></midi-bpmn-viewer-detail>
     </div>
 </template>
 
@@ -13,7 +14,8 @@
         data() {
             return {
                 color: '#ff0000',
-                processDefId: ''
+                processDefId: '',
+                procInstId: ''
             }
         },
         methods: {
@@ -23,7 +25,8 @@
         },
         created() {
             setTimeout(() => {
-                this.processDefId = 'Process_1:1719:187453'
+                this.processDefId = 'Process_1:1719:187453';
+                this.procInstId = '195538'
             }, 2000)
         }
     }
