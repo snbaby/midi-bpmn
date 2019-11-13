@@ -9,6 +9,10 @@
     export default {
         name: 'midiBpmnViewer',
         props: {
+            data: {
+                type: String,
+                required: true
+            },
             xml: {
                 type: String,
                 required: false,
@@ -25,9 +29,28 @@
                 viewer: null
             }
         },
+        watch: {
+            data(val) {
+                if (val.trim().length > 0) {
+                    this.init()
+                }
+            }
+        },
         computed: {},
         methods: {
             init() {
+                this.axios(
+                    {
+                        url: '/api/bpm/process-definition/xml',
+                        method: 'post',
+                        data: {"process-definition-id":"Process_1:1719:187453"}
+                    }
+                ).then(res=>{
+                    console.log('dd',res)
+                }).catch(err =>{
+                    console.log(err)
+                })
+                console.log('processDefId', this.date)
                 const self = this;
                 this.$refs.midiBpmnViewer.innerHTML = '';
                 self.viewer = new BpmnViewer({

@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <midi-bpmn-viewer ></midi-bpmn-viewer>
+        <midi-bpmn-viewer :data="processDefId"></midi-bpmn-viewer>
     </div>
 </template>
 
@@ -12,13 +12,19 @@
         },
         data() {
             return {
-                color: '#ff0000'
+                color: '#ff0000',
+                processDefId: ''
             }
         },
         methods: {
             headleChangeColor() {
                 console.log('颜色改变')
             }
+        },
+        created() {
+            setTimeout(() => {
+                this.processDefId = 'Process_1:1719:187453'
+            }, 2000)
         }
     }
 </script>
