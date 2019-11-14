@@ -1,6 +1,6 @@
 {
   "name": "midi-bpmn",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "vue bpmn组件",
   "main": "lib/midi-bpmn.umd.js",
   "keyword": "vue bpmn midi-bpmn",
@@ -12,8 +12,6 @@
     "lib": "vue-cli-service build --target lib --name midi-bpmn --dest lib packages/index.js"
   },
   "dependencies": {
-    "ant-design-vue": "^1.4.4",
-    "axios": "^0.19.0",
     "bpmn-js": "^5.1.2",
     "core-js": "^3.3.2",
     "node-sass": "^4.13.0",
@@ -21,6 +19,8 @@
     "vue": "^2.6.10"
   },
   "devDependencies": {
+    "ant-design-vue": "^1.4.4",
+    "axios": "^0.19.0",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-eslint": "^4.0.0",
     "@vue/cli-service": "^4.0.0",

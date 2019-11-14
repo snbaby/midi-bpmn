@@ -80,6 +80,7 @@
                         self.spinning = false;
                     })*/
                 }).catch(err =>{
+                    console.log('err', err)
                     self.spinning = false;
                     if(err && err.response && err.response.data && err.response.data.message){
                         self.errMessage = err.response.data.message

@@ -62,7 +62,7 @@
                         height: self.height,
                         width: '100%'
                     })
-                    self.viewer.importXML(res.data.bpmn20Xml, err => {
+                    self.viewer.importXML(res.bpmn20Xml, err => {
                         document
                             .getElementsByClassName('bjs-container')[0]
                             .removeChild(document.getElementsByClassName('bjs-powered-by')[0]); // 移除logo
@@ -72,7 +72,6 @@
                         }else{
                             console.log(err)
                         }
-
                         self.spinning = false;
                     })
                 }).catch(err =>{
