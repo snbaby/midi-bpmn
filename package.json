@@ -1,6 +1,6 @@
 {
   "name": "midi-bpmn",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "vue bpmn组件",
   "main": "lib/midi-bpmn.umd.js",
   "keyword": "vue bpmn midi-bpmn",

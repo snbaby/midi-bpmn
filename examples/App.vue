@@ -1,7 +1,6 @@
 <template>
     <div id="app">
-        <midi-bpmn-viewer :data="processDefId"></midi-bpmn-viewer>
-        <midi-bpmn-viewer-detail :data="procInstId"></midi-bpmn-viewer-detail>
+        <midi-bpmn-viewer-detail :data="procInstId" @cb="cb"></midi-bpmn-viewer-detail>
     </div>
 </template>
 
@@ -21,6 +20,9 @@
         methods: {
             headleChangeColor() {
                 console.log('颜色改变')
+            },
+            cb(id){
+                console.log(id)
             }
         },
         created() {

@@ -36,7 +36,10 @@
             return {
                 viewer: null,
                 spinning: true,
-                errMessage: ''
+                errMessage: '',
+
+                element: null,
+                overlayId: null
             }
         },
         watch: {
@@ -59,7 +62,8 @@
                             data: {
                                 "ACT_HI_ACTINST:ACT_HI_ACTINST[]": {
                                     '@column': '*',
-                                    'PROC_INST_ID_': self.data
+                                    'PROC_INST_ID_': self.data,
+                                    '@order': 'SEQUENCE_COUNTER_+'
                                 }
                             }
                         }
@@ -125,13 +129,110 @@
                     } else {
                         const canvas = self.viewer.get('canvas')
                         canvas.zoom('fit-viewport', 'auto')
+
+                        const eventBus = self.viewer.get('eventBus')
+                        const events = ['element.click']
+
+                        events.forEach(function(event) {
+                            eventBus.on(event, function(e) {
+                                self.$emit('cb', e.element);//回传点击事件
+                            })
+                        })
+                        self.renderMarker()
                     }
-                    self.spinning = false;
                 })
+            },
+            renderMarker(){
+                const self = this
+                const canvas = self.viewer.get('canvas')
+                self.ACT_HI_ACTINST.forEach(item=>{
+                    if (item.actType_ === 'parallelGateway') {
+                        canvas.addMarker(item.actId_, 'complete')
+                        return
+                    }
+
+                    if (item.actInstState_ === 0) {
+                        canvas.addMarker(item.actId_, 'todo')
+                    } else if (item.actInstState_ === 1) {
+                        canvas.addMarker(item.actId_, 'over')
+                    } else if (item.actInstState_ === 2) {
+                        canvas.addMarker(item.actId_, 'terminal')
+                    } else if (item.actInstState_ === 4) {
+                        canvas.addMarker(item.actId_, 'complete')
+                    } else {
+                        canvas.addMarker(item.actId_, 'other')
+                    }
+                })
+                self.spinning = false
             }
         }
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+    .diagram-note {
+        width: 400px;
+        background-color: white;
+        -moz-box-shadow: 2px 2px 10px #909090;
+        -webkit-box-shadow: 2px 2px 10px #909090;
+        box-shadow: 2px 2px 10px #909090;
+
+        .ant-form-item {
+            margin-bottom: 0px !important;
+        }
+
+        .ant-row {
+            height: 20px !important;
+        }
+        .ant-form-item-label {
+            line-height: 20px !important;
+        }
+
+        .ant-form-item-control {
+            line-height: 20px !important;
+        }
+    }
+
+    .todo:not(.djs-connection) .djs-visual > :nth-child(1) {
+        stroke: #b7eb8f !important; /* color elements as red */
+        fill: #f6ffed !important; /* color elements as red */
+        fill-opacity: 0.5 !important;
+    }
+    .todo:not(.djs-connection) .djs-visual > :nth-child(2) {
+        fill: #52c41a !important; /* color elements as red */
+    }
+    .over:not(.djs-connection) .djs-visual > :nth-child(1) {
+        stroke: #91d5ff !important; /* color elements as red */
+        fill: #e6f7ff !important; /* color elements as red */
+        fill-opacity: 0.5 !important;
+    }
+    .over:not(.djs-connection) .djs-visual > :nth-child(2) {
+        fill: #1890ff !important; /* color elements as red */
+    }
+
+    .terminal:not(.djs-connection) .djs-visual > :nth-child(1) {
+        stroke: #ffa39e !important; /* color elements as red */
+        fill: #fff1f0 !important; /* color elements as red */
+        fill-opacity: 0.5 !important;
+    }
+    .terminal:not(.djs-connection) .djs-visual > :nth-child(2) {
+        fill: #f5222d !important; /* color elements as red */
+    }
+
+    .complete:not(.djs-connection) .djs-visual > :nth-child(1) {
+        stroke: #87e8de !important; /* color elements as red */
+        fill: #e6fffb !important; /* color elements as red */
+        fill-opacity: 0.5 !important;
+    }
+    .complete:not(.djs-connection) .djs-visual > :nth-child(2) {
+        fill: #13c2c2 !important; /* color elements as red */
+    }
+    .other:not(.djs-connection) .djs-visual > :nth-child(1) {
+        stroke: #ffd591 !important; /* color elements as red */
+        fill: #fff7e6 !important; /* color elements as red */
+        fill-opacity: 0.5 !important;
+    }
+    .other:not(.djs-connection) .djs-visual > :nth-child(2) {
+        fill: #fa8c16 !important; /* color elements as red */
+    }
 </style>
