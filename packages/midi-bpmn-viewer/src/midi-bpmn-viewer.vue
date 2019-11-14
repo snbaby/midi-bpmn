@@ -1,6 +1,6 @@
 <template lang="html">
     <a-spin :spinning="spinning" :tip="tip">
-        <div  v-if="errMessage.length > 0">
+        <div v-if="errMessage.length > 0">
             {{errMessage}}
         </div>
         <div v-else class="spin-content" ref="midiBpmnViewer">
@@ -10,6 +10,7 @@
 
 <script>
     import BpmnViewer from 'bpmn-js';
+    import {processError} from './../../midi-bpmn-util/util'
 
     export default {
         name: 'midiBpmnViewer',
@@ -18,7 +19,7 @@
                 type: String,
                 required: true
             },
-            tip:{
+            tip: {
                 type: String,
                 required: false,
                 default: 'loading...'
@@ -56,31 +57,28 @@
                         "process-definition-id": self.data
                     }
                 }
-                self.axios(req).then(res=>{
+                self.axios(req).then(res => {
                     self.viewer = new BpmnViewer({
                         container: self.$refs.midiBpmnViewer,
                         height: self.height,
                         width: '100%'
                     })
                     self.viewer.importXML(res.bpmn20Xml, err => {
-                        document
+                        self.$refs.midiBpmnViewer
                             .getElementsByClassName('bjs-container')[0]
-                            .removeChild(document.getElementsByClassName('bjs-powered-by')[0]); // 移除logo
-                        if (!err) {
+                            .removeChild(self.$refs.midiBpmnViewer.getElementsByClassName('bjs-powered-by')[0]); // 移除logo
+                        if (err) {
+                            console.error('解析流程定义XML失败', err)
+                            processError(self, '解析流程定义XML失败')
+                        } else {
                             const canvas = self.viewer.get('canvas')
                             canvas.zoom('fit-viewport', 'auto')
-                        }else{
-                            console.log(err)
                         }
                         self.spinning = false;
                     })
-                }).catch(err =>{
-                    self.spinning = false;
-                    if(err && err.response && err.response.data && err.response.data.message){
-                        self.errMessage = err.response.data.message
-                    }else{
-                        self.errMessage = '加载异常,请联系管理员进行处理'
-                    }
+                }).catch(err => {
+                    console.error('获取流程定义XML失败', err)
+                    processError(self, '获取流程定义XML失败')
                 })
             }
         }

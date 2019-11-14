@@ -12,6 +12,7 @@
     "lib": "vue-cli-service build --target lib --name midi-bpmn --dest lib packages/index.js"
   },
   "dependencies": {
+    "async": "^3.1.0",
     "bpmn-js": "^5.1.2",
     "core-js": "^3.3.2",
     "node-sass": "^4.13.0",
@@ -19,11 +20,11 @@
     "vue": "^2.6.10"
   },
   "devDependencies": {
-    "ant-design-vue": "^1.4.4",
-    "axios": "^0.19.0",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-eslint": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
+    "ant-design-vue": "^1.4.4",
+    "axios": "^0.19.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.6.0",
     "eslint-plugin-vue": "^5.0.0",
