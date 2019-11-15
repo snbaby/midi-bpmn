@@ -169,7 +169,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="less">
     .diagram-note {
         width: 400px;
         background-color: white;
