@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <midi-bpmn-viewer-detail :data="procInstId" @cb="cb"></midi-bpmn-viewer-detail>
+        <midi-bpmn-modeler :data="procInstId" @cb="cb"></midi-bpmn-modeler>
     </div>
 </template>
 
@@ -18,9 +18,6 @@
             }
         },
         methods: {
-            headleChangeColor() {
-                console.log('颜色改变')
-            },
             cb(id){
                 console.log(id)
             }

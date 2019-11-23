@@ -4,12 +4,15 @@ import colorPicker from './color-picker'
 import midiBpmnViewer from './midi-bpmn-viewer'
 // 导入流程图详情组件
 import midiBpmnViewerDetail from './midi-bpmn-viewer-detail'
+// 导入流程图详情组件
+import midiBpmnModeler from './midi-bpmn-modeler'
 
 // 存储组件列表
 const components = [
     colorPicker,
     midiBpmnViewer,
-    midiBpmnViewerDetail
+    midiBpmnViewerDetail,
+    midiBpmnModeler
 ]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
@@ -31,5 +34,6 @@ export default {
     // 以下是具体的组件列表
     colorPicker,
     midiBpmnViewer,
-    midiBpmnViewerDetail
+    midiBpmnViewerDetail,
+    midiBpmnModeler
 }
